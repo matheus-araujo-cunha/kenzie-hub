@@ -1,10 +1,18 @@
-import Container from "./styles";
+import { Container, SecondContainer } from "./styles";
 
-const Button = ({ children, colorDefault, onClick }) => {
+const Button = ({ children, colorDefault, onClick, mini = false }) => {
   return (
-    <Container onClick={onClick} colorDefault={colorDefault}>
-      {children}
-    </Container>
+    <>
+      {mini ? (
+        <SecondContainer onClick={onClick} colorDefault={colorDefault}>
+          {children}
+        </SecondContainer>
+      ) : (
+        <Container onClick={onClick} colorDefault={colorDefault}>
+          {children}
+        </Container>
+      )}
+    </>
   );
 };
 

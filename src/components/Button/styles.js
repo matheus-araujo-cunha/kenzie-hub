@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.button`
+export const Container = styled.button`
   background-color: ${(props) =>
     props.colorDefault === 1
       ? "var(--color-secundary)"
@@ -26,4 +26,19 @@ const Container = styled.button`
   }
 `;
 
-export default Container;
+export const SecondContainer = styled.button`
+  background-color: rgba(78, 71, 255, 0.1);
+  color: var(--color-primary);
+  text-align: center;
+  text-transform: capitalize;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  min-width: 80px;
+  max-width: 120px;
+  height: 40px;
+
+  &:active {
+    background-color: var(--gray-medium);
+  }
+`;
