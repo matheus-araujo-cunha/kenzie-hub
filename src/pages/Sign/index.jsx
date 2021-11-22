@@ -11,6 +11,8 @@ import { toast } from "react-hot-toast";
 
 import Input from "../../components/Input/index";
 
+import { Select, MenuItem } from "@material-ui/core";
+
 import api from "../../services/api";
 
 import Popup from "../../components/Popup";
@@ -35,7 +37,10 @@ const Sign = () => {
       .oneOf([yup.ref("password")], "Senhas diferentes"),
     bio: yup.string().required("Campo obrigatório"),
     contact: yup.string().required("Campo obrigatório"),
+    course_module: yup.string().required("Campo obrigatório"),
   });
+
+  const modules = ["Primeiro", "Segundo", "Terceiro", "Quarto"];
 
   const {
     register,
@@ -114,12 +119,13 @@ const Sign = () => {
           error={errors.contact?.message}
         />
         <p>Selecionar módulo:</p>
-        <section>
-          <Button mini>Primeiro</Button>
-          <Button mini>Segundo</Button>
-          <Button mini>Terceiro</Button>
-          <Button mini>Quarto</Button>
-        </section>
+        <Select {...register("course_module")}>
+          {modules.map((element) => (
+            <MenuItem key={element} value={element}>
+              {element}{" "}
+            </MenuItem>
+          ))}
+        </Select>
         <Input
           label="Senha"
           register={register}

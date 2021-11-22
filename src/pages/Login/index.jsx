@@ -7,6 +7,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { Redirect } from "react-router-dom";
+
 import { useHistory } from "react-router-dom";
 
 import { toast } from "react-hot-toast";
@@ -15,7 +17,9 @@ import Input from "../../components/Input/index";
 
 import api from "../../services/api";
 
-const Login = () => {
+const Login = ({ setAuthenticated, authenticated }) => {
+  const history = useHistory();
+
   const schema = yup.object().shape({
     email: yup.string().required("Email obrigatório").email("Email inválido"),
     password: yup.string().required("Senha obrigatória"),
@@ -30,19 +34,23 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    api.post("/sessions", data).then((response) => {
+      const { token, user } = response.data;
 
-    api
-      .post("/sessions", data)
-      .then((response) => {
-        const { token, user } = response.data;
-        toast.success("Logado com sucesso!");
-        return history.push("/dashboard");
-      })
-      .catch((err) => toast.error("Email ou senha inválidos"));
+      localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
+      localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
+
+      // setAuthenticated(true);
+
+      toast.success("Logado com sucesso!");
+      return history.push("/dashboard");
+    });
+    // . => ("Email ou senha inválidos"));
   };
 
-  const history = useHistory();
+  if (authenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>
@@ -61,7 +69,9 @@ const Login = () => {
           name="password"
           error={errors.password?.message}
         />
-        <Button colorDefault={0}>Logar</Button>
+        <Button colorDefault={0} type="submit">
+          Logar
+        </Button>
         <p>
           Criar uma página para mostrar suas{" "}
           <span>habilidades metas e progresso</span>
