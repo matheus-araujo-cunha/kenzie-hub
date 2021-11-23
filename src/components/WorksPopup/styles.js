@@ -18,15 +18,19 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 50px;
+    justify-content: space-evenly;
 
-    > section {
-      margin-top: 15px;
+    > div {
+      margin-top: 10px;
+      gap: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      margin-bottom: 0;
+    }
 
-      input {
-      }
+    > section {
+      display: flex;
+      gap: 10px;
     }
   }
 `;

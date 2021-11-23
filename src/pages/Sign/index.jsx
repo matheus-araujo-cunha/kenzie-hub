@@ -73,7 +73,7 @@ const Sign = ({ isAuthenticated }) => {
   const history = useHistory();
 
   if (isAuthenticated) {
-    <Redirect to="/dashboard" />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (

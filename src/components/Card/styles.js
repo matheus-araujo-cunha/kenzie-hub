@@ -37,10 +37,15 @@ export const Container = styled.div`
   }
 
   &:hover {
-    border-right-color: var(--color-secundary);
+    border-right-color: ${(props) =>
+      props.isTechs ? "var(--color-secundary)" : "var(--color-primary)"};
     > div {
-      background-color: var(--color-secundary);
-      color: var(--gray-white);
+      background-color: ${(props) =>
+        props.isTechs ? "var(--color-secundary)" : "var(--color-primary)"};
+
+      svg {
+        color: var(--gray-white);
+      }
     }
   }
 `;
@@ -58,4 +63,19 @@ export const MiniContainer = styled.div`
 
   color: var(--color-secundary);
   background-color: var(--gray-white);
+`;
+
+export const IconContent = styled.div`
+  width: 20%;
+  height: 90%;
+  border-radius: 5px;
+  background-color: var(--gray-white);
+  color: var(--color-secundary);
+
+  svg {
+    text-align: center;
+    color: ${(props) =>
+      props.isTechs ? "var(--color-secundary)" : "var(--color-primary)"};
+    width: 100%;
+  }
 `;

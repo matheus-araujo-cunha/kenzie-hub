@@ -70,7 +70,7 @@ export const Works = styled.div`
   display: flex;
   width: 28vw;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   border: 2px solid var(--gray-white);
   div {
@@ -78,6 +78,13 @@ export const Works = styled.div`
     align-items: center;
     width: 100%;
     justify-content: space-between;
+  }
+
+  > section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 `;
 

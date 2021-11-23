@@ -1,4 +1,4 @@
-import { Container, MiniContainer } from "./styles";
+import { Container, MiniContainer, IconContent } from "./styles";
 
 const Card = ({
   title,
@@ -7,10 +7,13 @@ const Card = ({
   isTechs,
   description,
   defaultColor = true,
+  onClick,
 }) => {
   return (
-    <Container>
-      <div defaultColor={defaultColor}>{Icon && <Icon size={20} />}</div>
+    <Container isTechs={isTechs} onClick={onClick}>
+      <IconContent isTechs={isTechs} description={description}>
+        {Icon && <Icon size={20} />}
+      </IconContent>
       <section>
         <h2>{title}</h2>
         {isTechs ? (

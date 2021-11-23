@@ -8,22 +8,67 @@ import Button from "../Button";
 
 import Input from "../Input";
 
+import { toast } from "react-hot-toast";
+
 import { Select, MenuItem } from "@material-ui/core";
 
 import { HeadContainer } from "../Registered/styles";
 
 import { useForm } from "react-hook-form";
 
-const TechPopup = ({ setHandleTech }) => {
+import api from "../../services/api";
+
+const TechPopup = ({ setHandleTech, isUptade, token, loadTechs, idTech }) => {
   const { register, handleSubmit } = useForm();
+
+  const [textStatus, setTextStatus] = useState({ status: "" });
 
   const allStatus = ["Iniciante", "Intermediário", "Avançado"];
 
-  const [isRegistered, setIsRegistered] = useState(true);
+  const onUptade = (data, id) => {
+    if (data === "") {
+      toast.error("Preencha os campos antes de enviar");
+    }
+    api
+      .put(`/users/techs/${id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((_) => {
+        toast.success("Atualizado com sucesso!");
+        loadTechs();
+      })
+      .catch((err) => console.log(err));
+  };
 
-  const onPost = () => {};
+  const onDelete = (id) => {
+    api
+      .delete(`users/techs/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((_) => {
+        toast.success("Excluído com sucesso");
+        loadTechs();
+      })
+      .catch((err) => console.log(err));
+  };
 
-  const onDelete = () => {};
+  const onRegister = (data) => {
+    if (data.title === "" || (data.status === "" && !isUptade)) {
+      return toast.error("Preencha os campos antes de enviar");
+    }
+    !isUptade &&
+      api
+        .post("/users/techs", data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((_) => {
+          toast.success("Adicionado com sucesso!");
+          loadTechs();
+        })
+        .catch((_) => toast.error("Essa tecnologia já existe em seu perfil"));
+  };
 
   return (
     <Container>
@@ -33,13 +78,14 @@ const TechPopup = ({ setHandleTech }) => {
           <FaTimes />
         </button>
       </HeadContainer>
-      <form
-        onSubmit={isRegistered ? handleSubmit(onPost) : handleSubmit(onDelete)}
-      >
+      <form onSubmit={handleSubmit(onRegister)}>
         <Input label="Nome da tech" register={register} name="title" error="" />
         <SectionSelect>
           <p>Selecionar status:</p>
-          <Select {...register("status")}>
+          <Select
+            {...register("status")}
+            onChange={(ev) => setTextStatus({ status: ev.target.value })}
+          >
             {allStatus.map((element) => (
               <MenuItem key={element} value={element}>
                 {element}
@@ -47,22 +93,34 @@ const TechPopup = ({ setHandleTech }) => {
             ))}
           </Select>
         </SectionSelect>
-        <section>
-          <Button
-            colorDefault={1}
-            onClick={() => setIsRegistered(true)}
-            type="submit"
-          >
-            Salvar alterações
+
+        {isUptade ? (
+          <section>
+            {" "}
+            <Button
+              colorDefault={1}
+              onClick={() => {
+                onUptade(textStatus, idTech);
+              }}
+              type="submit"
+            >
+              Salvar alterações
+            </Button>{" "}
+            <Button
+              colorDefault={2}
+              onClick={() => {
+                onDelete(idTech);
+              }}
+              type="submit"
+            >
+              Excluir
+            </Button>{" "}
+          </section>
+        ) : (
+          <Button colorDefault={0} type="submit" onClick={() => {}}>
+            Cadastrar
           </Button>
-          <Button
-            colorDefault={2}
-            onClick={() => setIsRegistered(false)}
-            type="submit"
-          >
-            Excluir
-          </Button>
-        </section>
+        )}
       </form>
     </Container>
   );
