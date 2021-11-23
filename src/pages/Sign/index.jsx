@@ -11,6 +11,8 @@ import { toast } from "react-hot-toast";
 
 import Input from "../../components/Input/index";
 
+import { Redirect } from "react-router-dom";
+
 import { Select, MenuItem } from "@material-ui/core";
 
 import api from "../../services/api";
@@ -20,11 +22,9 @@ import Registered from "../../components/Registered";
 
 import { useState } from "react";
 
-import { FaTimes } from "react-icons/fa";
-
 import { Container, Form } from "./styles";
 
-const Sign = () => {
+const Sign = ({ isAuthenticated }) => {
   const [submit, setSubmit] = useState(false);
 
   const schema = yup.object().shape({
@@ -72,7 +72,9 @@ const Sign = () => {
 
   const history = useHistory();
 
-  console.log("estou aqui");
+  if (isAuthenticated) {
+    <Redirect to="/dashboard" />;
+  }
 
   return (
     <Container>

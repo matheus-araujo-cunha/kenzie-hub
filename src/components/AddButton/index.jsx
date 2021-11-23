@@ -1,7 +1,11 @@
 import Container from "./styles";
 
-const AddButton = ({ children, colorDefault }) => {
-  return <Container colorDefault={colorDefault}>{children}</Container>;
+const AddButton = ({ children, colorDefault, ...rest }) => {
+  return (
+    <Container colorDefault={colorDefault} {...rest}>
+      {children}
+    </Container>
+  );
 };
 
 export default AddButton;

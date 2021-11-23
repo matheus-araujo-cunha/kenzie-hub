@@ -17,7 +17,7 @@ import Input from "../../components/Input/index";
 
 import api from "../../services/api";
 
-const Login = ({ setAuthenticated, authenticated }) => {
+const Login = ({ setIsAuthenticated, isAuthenticated }) => {
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -34,21 +34,23 @@ const Login = ({ setAuthenticated, authenticated }) => {
   });
 
   const onSubmit = (data) => {
-    api.post("/sessions", data).then((response) => {
-      const { token, user } = response.data;
+    api
+      .post("/sessions", data)
+      .then((response) => {
+        const { token, user } = response.data;
 
-      localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
-      localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
+        localStorage.setItem("@KenzieHub:token", JSON.stringify(token));
+        localStorage.setItem("@KenzieHub:user", JSON.stringify(user));
 
-      // setAuthenticated(true);
+        setIsAuthenticated(true);
 
-      toast.success("Logado com sucesso!");
-      return history.push("/dashboard");
-    });
-    // . => ("Email ou senha inválidos"));
+        toast.success("Logado com sucesso!");
+        return history.push("/dashboard");
+      })
+      .catch((_) => toast.error("Email ou senha inválidos"));
   };
 
-  if (authenticated) {
+  if (isAuthenticated) {
     return <Redirect to="/dashboard" />;
   }
 

@@ -5,8 +5,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* justify-content: space-between; */
 `;
 
 export const HeadPage = styled.div`
@@ -17,7 +15,11 @@ export const HeadPage = styled.div`
   margin-top: 10px;
   height: 80px;
   padding: 0 20px;
-  box-shadow: 0 0 5px black;
+  box-shadow: 0 4px 40px -10px var(--gray-medium);
+
+  img {
+    max-width: 60px;
+  }
 
   div {
     margin: 0;
@@ -26,8 +28,6 @@ export const HeadPage = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  /* justify-content: space-between; */
-  /* align-items: center; */
 
   flex-direction: column;
 
@@ -41,18 +41,27 @@ export const Content = styled.div`
 `;
 
 export const Techs = styled.div`
+  color: var(--gray-strong);
   padding: 10px;
   display: flex;
   width: 28vw;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   border: 2px solid var(--gray-white);
   div {
     display: flex;
+
     align-items: center;
-    width: 100%;
+
     justify-content: space-between;
+  }
+
+  > section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 `;
 
@@ -73,40 +82,57 @@ export const Works = styled.div`
 `;
 
 export const Profile = styled.div`
-  /* padding: 10px; */
   display: flex;
 
   height: 500px;
-  width: 22vw;
+  width: 24vw;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
 
   section {
     background-color: var(--color-primary);
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    padding: 10px 15px;
+    border-radius: 8px;
+    gap: 20px;
     color: var(--gray-white);
     text-align: left;
+    margin-bottom: 20px;
 
     div {
       display: flex;
       flex-direction: column;
+      height: 70px;
+      justify-content: space-evenly;
 
       h2,
       h4,
-      span,
       p {
-        margin-left: 8px;
         width: inherit;
+      }
+
+      h2 {
+        text-transform: capitalize;
+        margin-bottom: 5px;
+      }
+
+      h4,
+      p {
+        font-size: 0.8rem;
+      }
+
+      p {
+        color: var(--gray-medium);
       }
     }
   }
 
-  border: 2px solid var(--gray-white);
-  div {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
+  button {
+    margin-top: 10px;
+    width: 90%;
   }
+
+  border: 2px solid var(--gray-white);
 `;

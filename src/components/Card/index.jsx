@@ -1,18 +1,27 @@
-import { Container, SecondContainer } from "./styles";
+import { Container, MiniContainer } from "./styles";
 
-const Card = ({ profile, contact, email, colorDefault, ...rest }) => {
+const Card = ({
+  title,
+  status,
+  icon: Icon,
+  isTechs,
+  description,
+  defaultColor = true,
+}) => {
   return (
-    <>
-      {profile ? (
-        <Container colorDefault={colorDefault} {...rest}></Container>
-      ) : (
-        <SecondContainer
-          colorDefault={colorDefault}
-          contact={contact}
-          email={email}
-        ></SecondContainer>
-      )}
-    </>
+    <Container>
+      <div defaultColor={defaultColor}>{Icon && <Icon size={20} />}</div>
+      <section>
+        <h2>{title}</h2>
+        {isTechs ? (
+          <MiniContainer>
+            <p>{status}</p>
+          </MiniContainer>
+        ) : (
+          <p>{description}</p>
+        )}
+      </section>
+    </Container>
   );
 };
 
