@@ -24,19 +24,29 @@ export const HeadPage = styled.div`
   div {
     margin: 0;
   }
+
+  @media (max-width: 760px) {
+    width: 100%;
+    margin-top: 0;
+    min-height: 80px;
+
+    img {
+      max-width: 40px;
+    }
+  }
 `;
 
 export const Content = styled.div`
   display: flex;
-
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
 
   margin-top: 30px;
 
   width: 85%;
-  @media (min-width: 650px) {
-    flex-direction: row;
-    justify-content: space-between;
+  @media (max-width: 760px) {
+    flex-direction: column;
+    gap: 20px;
   }
 `;
 
@@ -63,6 +73,10 @@ export const Techs = styled.div`
     flex-direction: column;
     justify-content: space-around;
   }
+
+  @media (max-width: 760px) {
+    width: 100%;
+  }
 `;
 
 export const Works = styled.div`
@@ -76,7 +90,7 @@ export const Works = styled.div`
   div {
     display: flex;
     align-items: center;
-    width: 100%;
+
     justify-content: space-between;
   }
 
@@ -85,6 +99,10 @@ export const Works = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+  }
+
+  @media (max-width: 760px) {
+    width: 100%;
   }
 `;
 
@@ -142,4 +160,8 @@ export const Profile = styled.div`
   }
 
   border: 2px solid var(--gray-white);
+
+  @media (max-width: 760px) {
+    width: 100%;
+  }
 `;

@@ -26,9 +26,6 @@ const TechPopup = ({ setHandleTech, isUptade, token, loadTechs, idTech }) => {
   const allStatus = ["Iniciante", "Intermediário", "Avançado"];
 
   const onUptade = (data, id) => {
-    if (data === "") {
-      toast.error("Preencha os campos antes de enviar");
-    }
     api
       .put(`/users/techs/${id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
@@ -37,7 +34,7 @@ const TechPopup = ({ setHandleTech, isUptade, token, loadTechs, idTech }) => {
         toast.success("Atualizado com sucesso!");
         loadTechs();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error("Preencha os campos antes de enviar"));
   };
 
   const onDelete = (id) => {
@@ -53,9 +50,6 @@ const TechPopup = ({ setHandleTech, isUptade, token, loadTechs, idTech }) => {
   };
 
   const onRegister = (data) => {
-    if (data.title === "" || (data.status === "" && !isUptade)) {
-      return toast.error("Preencha os campos antes de enviar");
-    }
     !isUptade &&
       api
         .post("/users/techs", data, {

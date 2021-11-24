@@ -9,27 +9,13 @@ export const Container = styled.div`
   gap: 10px;
   height: 80px;
 
-  > div {
-    width: 20%;
-    height: 90%;
-
-    border-radius: 5px;
-    background-color: var(--gray-white);
-    color: var(--color-secundary);
-
-    svg {
-      text-align: center;
-      width: 100%;
-    }
-  }
-
   > section {
     height: 70px;
-    gap: 20px;
     width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: flex-start;
 
     h2 {
       text-transform: capitalize;
@@ -55,9 +41,9 @@ export const MiniContainer = styled.div`
   height: 30px;
   border-radius: 5px;
 
-  > p {
+  > span {
+    width: 100%;
     text-align: center;
-    margin-left: 25%;
     font-size: 0.8rem;
   }
 

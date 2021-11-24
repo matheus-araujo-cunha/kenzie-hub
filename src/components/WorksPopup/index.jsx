@@ -29,10 +29,6 @@ const WorksPopup = ({
   const [descriptionWork, setDescriptionWork] = useState("");
 
   const onRegister = (data) => {
-    if (data.title === "" || (data.description === "" && !isUptadeWork)) {
-      toast.error("Preencha os campos antes de enviar");
-    }
-
     data.deploy_url = "kenziehub.me";
 
     !isUptadeWork &&
@@ -50,10 +46,6 @@ const WorksPopup = ({
   };
 
   const onUptade = (twork, tdisc, id) => {
-    if (twork === "" && tdisc === "") {
-      toast.error("Preencha um dos campos antes de salvar");
-    }
-
     const data = { title: twork, description: tdisc };
 
     api
@@ -64,12 +56,10 @@ const WorksPopup = ({
         toast.success("Atualizado com sucesso");
         loadWorks();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error("Preencha um dos campos antes de salvar"));
   };
 
   const onDelete = (id) => {
-    console.log("id aqui =>", id);
-
     api
       .delete(`users/works/${id}`, {
         headers: { Authorization: `Bearer ${token}` },

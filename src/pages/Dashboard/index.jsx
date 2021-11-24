@@ -20,7 +20,7 @@ import { Redirect } from "react-router-dom";
 import TechPopup from "../../components/TechPopup";
 import WorksPopup from "../../components/WorksPopup";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import jwtDecode from "jwt-decode";
 
@@ -33,7 +33,11 @@ const Dashboard = ({ isAuthenticated, setIsAuthenticated }) => {
     JSON.parse(localStorage.getItem("@KenzieHub:token")) || ""
   );
 
-  const [tokenDecode] = useState(jwtDecode(token));
+  const [tokenDecode, setTokenDecode] = useState("");
+
+  useEffect(() => {
+    setTokenDecode(jwtDecode(token));
+  }, [token]);
 
   const [user] = useState(
     JSON.parse(localStorage.getItem("@KenzieHub:user")) || ""
@@ -165,9 +169,8 @@ const Dashboard = ({ isAuthenticated, setIsAuthenticated }) => {
           <section>
             <img src={user.avatar_url === null && DefaultImg} alt={user.name} />
             <div>
-              <h2>{token.name}</h2>
-              <h4>{token.course_module} módulo</h4>
-              <p>Introdução ao FrontEnd</p>
+              <h2>{user.name}</h2>
+              <h4>{user.course_module} módulo</h4>
             </div>
           </section>
 

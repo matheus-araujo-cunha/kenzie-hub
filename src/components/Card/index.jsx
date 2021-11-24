@@ -18,7 +18,7 @@ const Card = ({
         <h2>{title}</h2>
         {isTechs ? (
           <MiniContainer>
-            <p>{status}</p>
+            <span>{status}</span>
           </MiniContainer>
         ) : (
           <p>{description}</p>
